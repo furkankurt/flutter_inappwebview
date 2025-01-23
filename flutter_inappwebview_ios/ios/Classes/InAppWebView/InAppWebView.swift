@@ -110,8 +110,8 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
             if #available(iOS 11, *) {
                 // Above iOS 11, adjust contentInset to compensate the adjustedContentInset so the sum will
                 // always be 0.
-                if (scrollView.adjustedContentInset != .zero) {
-                    let insetToAdjust = scrollView.adjustedContentInset
+                if (scrollView.adjustedContentInset != UIEdgeInsets.zero) {
+                    let insetToAdjust = self.scrollView.adjustedContentInset
                     scrollView.contentInset = UIEdgeInsets(top: -insetToAdjust.top, left: -insetToAdjust.left,
                                                            bottom: -insetToAdjust.bottom, right: -insetToAdjust.right)
                 }
@@ -133,7 +133,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
                     _scrollViewContentInsetAdjusted = true
                     let insetToAdjust = scrollView.adjustedContentInset
                     scrollView.contentInset = UIEdgeInsets(top: -insetToAdjust.top, left: -insetToAdjust.left,
-                                                           bottom: -insetToAdjust.bottom, right: -insetToAdjust.right)
+                                                           bottom: -insetToAdjust.bottom, right: -insetToAdjust.right)  
                 }
             } else {
                 scrollView.contentInset = .zero
@@ -373,15 +373,15 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     }
 
     public func prepare() {
-        if #available(iOS 17.2, *) {
-            // Fix https://github.com/pichillilorenzo/flutter_inappwebview/issues/1947
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
-                                                   name: UIResponder.keyboardWillShowNotification,
-                                                   object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
-                                                   name: UIResponder.keyboardWillHideNotification,
-                                                   object: nil)
-        }
+        // if #available(iOS 17.2, *) {
+        //     // Fix https://github.com/pichillilorenzo/flutter_inappwebview/issues/1947
+        //     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
+        //                                            name: UIResponder.keyboardWillShowNotification,
+        //                                            object: nil)
+        //     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
+        //                                            name: UIResponder.keyboardWillHideNotification,
+        //                                            object: nil)
+        // }
         
         scrollView.addGestureRecognizer(self.longPressRecognizer)
         scrollView.addGestureRecognizer(self.recognizerForDisablingContextMenuOnLinks)
